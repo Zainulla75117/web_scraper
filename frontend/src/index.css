@@ -1,0 +1,12 @@
+@import "tailwindcss";
+@import "@fontsource/geist-sans";
+
+@theme {
+  --font-sans: "Geist Sans", "Inter", sans-serif;
+}
+
+@layer base {
+  body {
+    @apply bg-zinc-950 text-zinc-300 font-sans antialiased min-h-[100dvh] selection:bg-emerald-500/30 selection:text-emerald-200;
+  }
+}
