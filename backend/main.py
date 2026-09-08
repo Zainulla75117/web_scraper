@@ -10,9 +10,17 @@ models.Base.metadata.create_all(bind=database.engine)
 app = FastAPI(title="RAG Web Scraper API")
 
 # Configure CORS for the React frontend
+origins = [
+    "http://localhost:5173",    # Default Vite dev server
+    "http://127.0.0.1:5173",
+    "http://localhost:3000",    # Docker Compose exposed port
+    "http://127.0.0.1:3000",
+    "http://localhost",         # Default port 80 (Docker Nginx)
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"], # For development, allow all. In production, specify the frontend URL.
+    allow_origins=origins, 
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

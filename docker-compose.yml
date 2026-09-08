@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      # Mount the database so it persists across container restarts
+      - ./backend/scraper_v2.db:/app/scraper_v2.db
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:80" # Maps localhost:3000 to port 80 inside the nginx container
+    depends_on:
+      - backend
+    restart: unless-stopped
